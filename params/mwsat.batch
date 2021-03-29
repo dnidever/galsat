@@ -1,0 +1,40 @@
+; This runs galsat on all the Milky Way satellites
+; with decent proper motions:
+; LMC, Sgr, Fornax, Ursa Minor, Sculptor, Carina
+; Coordinates from Mateo (1998)
+
+; LMC
+ra_lmc = ten(05,23,34)
+dec_lmc = ten(-69,45.4)
+
+; SGR
+ra_sgr = ten(18,55,03)
+dec_sgr = ten(-30,28.7)
+
+; FORNAX
+ra_for = ten(02,39,59)
+dec_for = ten(-34,27.0)
+;mualph = 44  ; 44+/-4 mas  Piatek & Pryor
+;mudelt = -37 ; -37+/-4 mas
+mualph = 59  ; 59+/-16 mas  Dinescue
+mudelt = -15 ; -15+/-16 mas
+
+; URSA MINOR
+ra_umin = ten(15,09,11)
+dec_umin = ten(67,12.9)
+;mualph = -50  ; -50+/-17  Piatek & Pryor
+;mudelt =  -22 ; -22+/-16
+mualph = 6.6  ; 6.6+/-7.8 Schweitzer (1996)
+mudelt = 7.4  ; 7.4+/-9.9
+
+; SCULPTOR
+ra_scu = ten(01,00,09)
+dec_scu = ten(-33,42.5)
+mualph = 
+mudelt = 
+
+; CARINA
+ra_car = ten(06,41,37)
+dec_car = ten(-50,58.0)
+mualph = 36 ; 36+/-12 Piatek & Pryor
+mudelt = 37 ; 37+/-11

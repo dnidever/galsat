@@ -1,0 +1,109 @@
+This describes the different galsat programs and how they are different.
+The original version from Piet Hut is nbody_sh1.C.
+
+Basic instructions:
+( ./galsat6 -d step -o out_step -t tot_time -i -e diag_step -s fixed_step -f < tgal.in > tgal.out ) > & tgal.diag
+For Example:
+( ./galsat6 -d 0.001 -o 0.01 -t 1.00 -i -e 1.00 -s 0.001 -f < tgal.in > tgal.out ) > & tgal.diag
+
+Input file format:
+Nbodies
+tstart
+Vcirc
+Dhalo
+mass1  soft1  x1  y1  z1  vx1  vy1  vz1
+mass2  soft2  x2  y2  z2  vx2  vy2  vz2
+mass3  soft3  x3  y3  z3  vx3  vy3  vz3
+
+Example:
+1000
+0
+220.000
+13.0000
+1.00000e+10 1.00000 50.0000 0.00000 0.00000 0.00000 293.345 0.00000
+0.00000 0.00000 49.1928 -0.516352 0.0456743 -55.2769 438.157 133.264
+0.00000 0.00000 52.0832 -0.154648 -0.103109 -3.14334 240.686 14.8995
+
+-------------------
+
+galsat.C
+
+Similar to nbody_sh1.C except that it has the MW gravitational potential.
+By default the MW gravitational potential is on.  You can turn it off
+by setting the -m switch.
+
+--------------------
+galsat2.C
+
+The only change is that now Vcirc is a parameter that needs to be input.
+It needs to be added after Nbody and Tstart.
+
+--------------------
+galsat3.C
+
+In addition to Vcirc the halo softening parameter must also be input.
+So Nbody, Tstart, Vcirc and Ds.
+
+--------------------
+galsat4.C
+
+The only difference is that now you can have test particles with
+zero mass and it won't waste too time trying to figoure out the
+effects the zero-mass particles have on everything else.  Just
+added an If Then statement.
+
+I also added the option to use a fixed timestep (use -s option),
+and to put in minimum and maximum values for the timestep
+(use -l and -c options).  It also uses softening parameters now.
+
+The thing about the softening parameters is that it only uses the
+softening parameters of the ith body not the jth body.  So if you
+put the LMC first and the Sgr after that then it will use the LMC's
+softening parameter for calculating the interaction.  You can still
+have a Sgr softening parameter and it will be used to calculate
+the interaction for other bodies, such as test particles.  That's
+a good thing to do because otherwise during the collision bodies
+close to Sgr will get shot away.
+
+--------------------
+galsat5.C
+
+Same as galsat4 except that now I'm using a plummer potential
+for the softening potential.
+
+If Nbody >= 10,000 then the snapshots will be saved the separate
+files named gal#.out
+
+--------------------
+galsat6.C
+
+Added dynamical friction.  Turn it on with the 'y' flag.
+
+08/14/13, made galsat6b.C which also can output energies for all the particles
+if the -x flag is set.
+
+--------------------
+galsat7.C
+
+Calculates at what apo a particle becomes unbound.  Assumes
+the first body is the satellite.  A 10th column is included
+in the output.  0 for stars that are still bound, 1 for stars
+that were unbound at the first apo, 2 ... and so on.
+
+-------------------
+Improvements to be added:
+
+-Allow all the MW gravitational potential parameters to be input at the
+ beginning.
+
+-Allow only some of the bodies to contribute to the gravitational field.
+ Add another field in the line for each body that is set to either 0 or 1.
+ 0 means that it does contribute to the grav. field and 1 means it does.
+ In either case it will experience the grav. field of the other bodies,
+ but other bodies will experience its grav. field only if the flag is set
+ to 1.  If the flag is 0 then it basically acts as test particles.  This
+ will be useful to see what the tidal forces are or to see what will happen
+ in interactions of galaxies.
+
+-Allow the mass of the satellite to change based on the number of particles
+ lost/left.

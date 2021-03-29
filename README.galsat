@@ -1,6 +1,9 @@
 This describes the different galsat programs and how they are different.
 The original version from Piet Hut is nbody_sh1.C.
 
+To compile the code, just do:
+g++ -o galsat galsat.C"
+
 Basic instructions:
 ( ./galsat6 -d step -o out_step -t tot_time -i -e diag_step -s fixed_step -f < tgal.in > tgal.out ) > & tgal.diag
 For Example:
